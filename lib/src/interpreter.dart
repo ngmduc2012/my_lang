@@ -9,7 +9,6 @@ import 'shared_preference.dart';
 const String constSaveLocale = 'constSaveLocaleInPackageCureStorage';
 
 class MyLang {
-
   late Locale locale;
   late List<Locale> listLocale;
   String pathInAssets = "assets/i18n/";
@@ -30,7 +29,8 @@ class MyLang {
     final getLocale = await myStorage.read<String>(constSaveLocale);
     if (getLocale != null) {
       try {
-        return listLocale.firstWhere((element) => element.toString() == getLocale);
+        return listLocale
+            .firstWhere((element) => element.toString() == getLocale);
       } catch (e) {
         return locale;
       }
@@ -49,8 +49,10 @@ class MyLang {
     this.locale = locale ?? this.locale;
     Intl.defaultLocale = this.locale.languageCode;
     saveLocal(locale: locale);
-    final String jsonString = await rootBundle.loadString('$pathInAssets${this.locale.languageCode}${this.locale.countryCode != null ? ("-${this.locale.countryCode}") : ""}.json');
-    final Map<String, dynamic> jsonMap = json.decode(jsonString) as Map<String, dynamic>;
+    final String jsonString = await rootBundle.loadString(
+        '$pathInAssets${this.locale.languageCode}${this.locale.countryCode != null ? ("-${this.locale.countryCode}") : ""}.json');
+    final Map<String, dynamic> jsonMap =
+        json.decode(jsonString) as Map<String, dynamic>;
 
     localizedStrings = jsonMap.map((key, value) {
       return MapEntry(key, value.toString());

@@ -3,7 +3,6 @@ import 'dart:convert' as convert;
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class MyPrefs {
 /*
     Learn more: https://pub.dev/packages/shared_preferences
@@ -32,7 +31,8 @@ class MyPrefs {
   }
 
   Future<bool> write(String key, dynamic value) async {
-    final SharedPreferences prefs = this.prefs ??= await SharedPreferences.getInstance();
+    final SharedPreferences prefs =
+        this.prefs ??= await SharedPreferences.getInstance();
     if (value.runtimeType == String) {
       return tryBool(prefs.setString(key, value as String));
     } else if (value.runtimeType == int) {
@@ -44,14 +44,14 @@ class MyPrefs {
     } else if (value.runtimeType == List<String>) {
       return tryBool(prefs.setStringList(key, value as List<String>));
     } else if (value.runtimeType.toString() == "_Map<String, dynamic>") {
-      return tryBool(prefs.setString(key, convert.jsonEncode(value as Map<String, dynamic>)));
+      return tryBool(prefs.setString(
+          key, convert.jsonEncode(value as Map<String, dynamic>)));
     } else if (value.runtimeType == DateTime) {
       return tryBool(prefs.setString(key, value.toString()));
     } else {
       return Future(() => false);
     }
   }
-
 
   /// Đảm bảo rằng đã chạy setUp()
   Future<T?> read<T>(String key) async {
@@ -68,9 +68,13 @@ class MyPrefs {
       } else if (T == List<String>) {
         return prefs.getStringList(key) as T;
       } else if (T == Map<String, dynamic>) {
-        return prefs.getString(key) == null ? null : convert.jsonDecode(prefs.getString(key)!) as T;
+        return prefs.getString(key) == null
+            ? null
+            : convert.jsonDecode(prefs.getString(key)!) as T;
       } else if (T == DateTime) {
-        return prefs.getString(key) == null ? null : DateTime.parse(prefs.getString(key)!) as T;
+        return prefs.getString(key) == null
+            ? null
+            : DateTime.parse(prefs.getString(key)!) as T;
       } else {
         return null;
       }
@@ -78,5 +82,4 @@ class MyPrefs {
       return null;
     }
   }
-
 }

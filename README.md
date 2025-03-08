@@ -1,50 +1,55 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# my\_lang
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+## Introduction
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+`my_lang` is a library that provides flexible and easy-to-use localization support for Flutter applications.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Multi-language support using JSON files.
+- Easy to integrate and use.
+- Dynamic language switching in the app.
+- Automatically reads JSON files and generates Dart files without manually entering each key.
 
-## Getting started
+## Installation
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Add the following to your `pubspec.yaml`:
 
-## Usage
-
-MyLang myLang = MyLang(); 
-
-```dart
-my_lang: ^lastest
+```yaml
+my_lang: ^latest_version
 
 flutter:
-assets:
-- assets/i18n/
+  assets:
+    - assets/i18n/
+```
 
-en.json
-{
-"welcomeBack": "Welcome Back",
-"welcomeBackNameApp": "Welcome @nameUser Back @nameApp"
-}
+## JSON Language File Structure
 
-vi.json
+Create JSON files inside the `assets/i18n/` directory:
+
+**en.json**
+
+```json
 {
-"welcomeBack": "Chào mừng trở lại",
-"welcomeBackNameApp": "Chào mừng @nameUser trở lại @nameApp"
+  "welcomeBack": "Welcome Back",
+  "welcomeBackNameApp": "Welcome @nameUser Back @nameApp"
 }
+```
+
+**vi.json**
+
+```json
+{
+  "welcomeBack": "Chào mừng trở lại",
+  "welcomeBackNameApp": "Chào mừng @nameUser trở lại @nameApp"
+}
+```
+
+## Initializing the Library
+
+```dart
+import 'package:my_lang/my_lang.dart';
+import 'package:flutter/widgets.dart';
 
 MyLang myLang = MyLang();
 
@@ -53,43 +58,76 @@ const listLocale = [
   Locale('vi'),
 ];
 
-WidgetsFlutterBinding.ensureInitialized();
-await myLang.setUp(listLocale: listLocale);
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await myLang.setUp(listLocale: listLocale);
+  runApp(MyApp());
+}
+```
 
+## Creating the `interpreter.dart` File
 
+Create the `interpreter.dart` file containing the `OurLang` class:
+
+```dart
 import 'package:my_lang/my_lang.dart';
 
 class OurLang extends MyLang {
-  
-static String get welcomeBack => MyLang.translate('welcomeBack');
-static String? welcomeBackNameApp(String nameUser,String nameApp,) => MyLang.translate('welcomeBackNameApp', params: {'nameUser': nameUser,'nameApp': nameApp,});
-
+  static String get welcomeBack => MyLang.translate('welcomeBack');
+  static String? welcomeBackNameApp(String nameUser, String nameApp) =>
+      MyLang.translate('welcomeBackNameApp', params: {
+        'nameUser': nameUser,
+        'nameApp': nameApp,
+      });
 }
-
-OurLang.welcomeBack
-
-dart pub global activate my_lang
-
-/* **************************************************************************
-RUN on project terminal
-dart run my_lang
-dart run my_lang -i en.json -o interpreter.dart
-************************************************************************** */
-
-
-myLang.loadFileJson(locale:  myLang.locale.isEnglish ? const Locale("vi") : const Locale("en"));
-
 ```
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+## Usage
 
 ```dart
-const like = 'sample';
+print(OurLang.welcomeBack); // "Welcome Back" or "Chào mừng trở lại"
+print(OurLang.welcomeBackNameApp("John", "MyApp"));
 ```
 
-## Additional information
+## Changing Language in the App
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+myLang.loadFileJson(locale: myLang.locale.languageCode == 'en'
+? const Locale("vi")
+    : const Locale("en"));
+```
+
+## Generating `OurLang` Automatically
+
+Run the following command to automatically generate `interpreter.dart`:
+
+```sh
+dart pub global activate my_lang
+dart run my_lang -i assets/i18n/en.json -o lib/interpreter.dart
+```
+
+> 💡 **Tip:** Quickly copy a file path using these shortcuts:
+> - **MacBook**: `Command (⌘) + Option (⌥) + C`
+> - **Windows**: `Ctrl + Shift + C`
+
+
+## Contribution
+
+If you have any suggestions or find any issues, feel free to open an issue or submit a pull request on [GitHub](https://github.com/your-repo/my_lang).
+
+## Developer Team:
+
+Any comments please contact us [ThaoDoan](https://github.com/mia140602) and [DucNguyen](https://github.com/ngmduc2012).
+
+[![Buy Me A Coffee](https://cdn.buymeacoffee.com/buttons/v2/default-orange.png)](https://buymeacoffee.com/ducmng12g)
+
+[![Support Me on Ko-fi](https://storage.ko-fi.com/cdn/kofi6.png?v=6)](https://ko-fi.com/I2I81AEJG8)
+
+
+
+
+
+
+
+
+

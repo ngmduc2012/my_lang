@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 const listLocale = [
   Locale('en'),
   Locale('vi'),
@@ -60,16 +61,21 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-             Text(
+            Text(
               OurLang.youhavepushedthebuttonthismanytimes,
             ),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            TextButton(onPressed: (){
-              myLang.loadFileJson(locale:  myLang.locale.isEnglish ? const Locale("vi") : const Locale("en"));
-            }, child: Text(OurLang.language))
+            TextButton(
+                onPressed: () {
+                  myLang.loadFileJson(
+                      locale: myLang.locale.isEnglish
+                          ? const Locale("vi")
+                          : const Locale("en"));
+                },
+                child: Text(OurLang.language))
           ],
         ),
       ),
