@@ -1,7 +1,3 @@
-# my\_lang
-
-## Introduction
-
 `my_lang` is a library that provides flexible and easy-to-use localization support for Flutter applications.
 
 ## Features
@@ -106,14 +102,14 @@ dart pub global activate my_lang
 dart run my_lang -i assets/i18n/en.json -o lib/interpreter.dart
 ```
 
-> 💡 **Tip:** Quickly copy a file path using these shortcuts:
+> 💡 **Tip:** Quickly copy a file path using these shortcuts on Android Studio:
 > - **MacBook**: `Command (⌘) + Option (⌥) + C`
 > - **Windows**: `Ctrl + Shift + C`
 
 
 ## Contribution
 
-If you have any suggestions or find any issues, feel free to open an issue or submit a pull request on [GitHub](https://github.com/your-repo/my_lang).
+If you have any suggestions or find any issues, feel free to open an issue or submit a pull request on [GitHub](https://github.com/ngmduc2012/my_lang).
 If you want to know what i do in package, checking my document here https://wong-coupon.gitbook.io/flutter/ui/multi-language
 
 ## Developer Team:

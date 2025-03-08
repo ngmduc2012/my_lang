@@ -96,7 +96,7 @@ class MyLang {
     final String jsonString = await rootBundle.loadString(
         '$pathInAssets${this.locale.languageCode}${this.locale.countryCode != null ? ("-${this.locale.countryCode}") : ""}.json');
     final Map<String, dynamic> jsonMap =
-    json.decode(jsonString) as Map<String, dynamic>;
+        json.decode(jsonString) as Map<String, dynamic>;
 
     localizedStrings = jsonMap.map((key, value) {
       return MapEntry(key, value.toString());
