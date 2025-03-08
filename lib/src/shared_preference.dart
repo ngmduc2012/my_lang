@@ -3,6 +3,15 @@ import 'dart:convert' as convert;
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// A utility class for managing data persistence using `SharedPreferences`.
+///
+/// This class provides methods to write and read various data types to and from
+/// persistent storage. It simplifies the use of `SharedPreferences` by handling
+/// type checking and error handling.
+///
+/// Example usage:
+///
+///
 class MyPrefs {
 /*
     Learn more: https://pub.dev/packages/shared_preferences
@@ -15,12 +24,27 @@ class MyPrefs {
           myPrefs.write(constSaveLocale, locale.toString());
 */
 
+  /// The `SharedPreferences` instance used for data persistence.
   SharedPreferences? prefs;
 
+  /// Initializes the `SharedPreferences` instance.
+  ///
+  /// This method must be called before any other methods in this class.
+  /// It asynchronously retrieves the `SharedPreferences` instance.
   Future<void> setUp() async {
     prefs = await SharedPreferences.getInstance();
   }
 
+  /// Attempts to execute a `Future<bool>` and returns its result.
+  ///
+  /// If an error occurs during the execution of the future, it prints the
+  /// error to the debug console and returns `false`.
+  ///
+  /// Args:
+  ///   future: The `Future<bool>` to execute.
+  ///
+  /// Returns:
+  ///   The result of the future, or `false` if an error occurred.
   Future<bool> tryBool(Future<bool> future) async {
     try {
       return future;
@@ -30,6 +54,19 @@ class MyPrefs {
     }
   }
 
+  /// Writes a value to persistent storage with the specified key.
+  ///
+  /// This method supports various data types, including `String`, `int`,
+  /// `bool`, `double`, `List<String>`, `Map<String, dynamic>`, and `DateTime`.
+  /// It automatically detects the type of the value and uses the appropriate
+  /// `SharedPreferences` method to store it.
+  ///
+  /// Args:
+  ///   key: The key to associate with the value.
+  ///   value: The value to store.
+  ///
+  /// Returns:
+  ///   `true` if the value was successfully written, `false` otherwise.
   Future<bool> write(String key, dynamic value) async {
     final SharedPreferences prefs =
         this.prefs ??= await SharedPreferences.getInstance();
@@ -53,7 +90,22 @@ class MyPrefs {
     }
   }
 
-  /// Đảm bảo rằng đã chạy setUp()
+  /// Reads a value from persistent storage with the specified key.
+  ///
+  /// This method supports various data types, including `String`, `int`,
+  /// `bool`, `double`, `List<String>`, `Map<String, dynamic>`, and `DateTime`.
+  /// It automatically detects the type of the value and uses the appropriate
+  /// `SharedPreferences` method to read it.
+  ///
+  /// Note:
+  ///   Ensure that `setUp()` has been called before calling this method.
+  ///
+  /// Args:
+  ///   key: The key associated with the value to read.
+  ///
+  /// Returns:
+  ///   The value associated with the key, or `null` if the key does not exist
+  ///   or if an error occurred.
   Future<T?> read<T>(String key) async {
     try {
       final SharedPreferences prefs = this.prefs!;

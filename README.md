@@ -114,6 +114,7 @@ dart run my_lang -i assets/i18n/en.json -o lib/interpreter.dart
 ## Contribution
 
 If you have any suggestions or find any issues, feel free to open an issue or submit a pull request on [GitHub](https://github.com/your-repo/my_lang).
+If you want to know what i do in package, checking my document here https://wong-coupon.gitbook.io/flutter/ui/multi-language
 
 ## Developer Team:
 
