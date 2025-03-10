@@ -99,7 +99,14 @@ Run the following command to automatically generate `interpreter.dart`:
 
 ```sh
 dart pub global activate my_lang
-dart run my_lang -i assets/i18n/en.json -o lib/interpreter.dart
+```
+
+```sh
+my_lang 
+```
+
+```sh
+my_lang -i assets/i18n/en.json -o lib/interpreter.dart -c YourLang 
 ```
 
 > 💡 **Tip:** Quickly copy a file path using these shortcuts on Android Studio:

@@ -65,8 +65,9 @@ Future<void> writeToFile(
   sink.writeln(
       "/* **************************************************************************");
   sink.writeln("RUN on project terminal");
-  sink.writeln("dart run my_lang");
-  sink.writeln("dart run my_lang -i en.json -o interpreter.dart -c $className");
+  sink.writeln("dart pub global activate my_lang \n");
+  sink.writeln("my_lang");
+  sink.writeln("my_lang -i en.json -o interpreter.dart -c $className");
   sink.writeln(
       "************************************************************************** */");
   sink.writeln('class $className extends MyLang {\n');
