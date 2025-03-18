@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'shared_preference.dart';
 
 /// The key used to save and retrieve the locale from persistent storage.
-const String constSaveLocale = 'constSaveLocaleInPackageCureStorage';
+const String constSaveLocale = 'b3f8c4c1-5e62-4b6e-967a-d83b72f96f8b';
 
 /// A class for managing localization and translations in a Flutter application.
 ///
@@ -23,9 +23,12 @@ class MyLang {
   /// The path to the directory containing the localization JSON files in the assets.
   String pathInAssets = "assets/i18n/";
 
+  /// The key used to save and retrieve the locale from persistent storage.
+  String keySaveLocale = constSaveLocale;
+
   /// A map containing the localized strings, where the key is the translation key
   /// and the value is the localized string.
-  static Map<String, String>? localizedStrings;
+  Map<String, String>? localizedStrings;
 
   /// An instance of `MyPrefs` for managing persistent storage.
   MyPrefs myStorage = MyPrefs();
@@ -39,7 +42,12 @@ class MyLang {
   /// Args:
   ///   listLocale: The list of supported locales.
   ///   path: An optional path to the directory containing the localization JSON files.
-  Future<void> setUp({required List<Locale> listLocale, String? path}) async {
+  Future<void> setUp({
+    required List<Locale> listLocale,
+    String? path,
+    String? keySaveLocale,
+  }) async {
+    this.keySaveLocale = keySaveLocale ?? constSaveLocale;
     this.listLocale = listLocale;
     await myStorage.setUp();
     locale = await loadLocal();
@@ -56,7 +64,7 @@ class MyLang {
   /// Returns:
   ///   The stored locale, or the first locale in the list of supported locales if no locale is stored.
   Future<Locale> loadLocal() async {
-    final getLocale = await myStorage.read<String>(constSaveLocale);
+    final getLocale = await myStorage.read<String>(keySaveLocale);
     if (getLocale != null) {
       try {
         return listLocale
@@ -75,7 +83,7 @@ class MyLang {
   ///   locale: The locale to save. If null, nothing is saved.
   void saveLocal({Locale? locale}) {
     if (locale == null) return;
-    myStorage.write(constSaveLocale, locale.toString());
+    myStorage.write(keySaveLocale, locale.toString());
   }
 
   /// Loads the localization data from the JSON file for the specified locale.
@@ -89,7 +97,7 @@ class MyLang {
   ///
   /// Returns:
   ///   `true` if the JSON file was successfully loaded and parsed, `false` otherwise.
-  Future<bool> loadFileJson({Locale? locale}) async {
+  Future<bool> loadFileJson({Locale? locale, bool isReloadApp = true}) async {
     this.locale = locale ?? this.locale;
     Intl.defaultLocale = this.locale.languageCode;
     saveLocal(locale: locale);
@@ -101,7 +109,8 @@ class MyLang {
     localizedStrings = jsonMap.map((key, value) {
       return MapEntry(key, value.toString());
     });
-    await WidgetsFlutterBinding.ensureInitialized().performReassemble();
+    if (isReloadApp)
+      await WidgetsFlutterBinding.ensureInitialized().performReassemble();
     return true;
   }
 
@@ -119,7 +128,7 @@ class MyLang {
   ///
   /// Returns:
   ///   The localized string, or the key itself if no translation is found.
-  static String translate(String key, {Map<String, String> params = const {}}) {
+  String translate(String key, {Map<String, String> params = const {}}) {
     if (localizedStrings == null) return key;
     var trans = localizedStrings![key];
     if (trans == null || trans == "--") return key;

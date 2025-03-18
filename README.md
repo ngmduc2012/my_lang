@@ -76,10 +76,10 @@ Create the `interpreter.dart` file containing the `OurLang` class:
 ```dart
 import 'package:my_lang/my_lang.dart';
 
-class OurLang extends MyLang {
-  static String get welcomeBack => MyLang.translate('welcomeBack');
-  static String? welcomeBackNameApp(String nameUser, String nameApp) =>
-      MyLang.translate('welcomeBackNameApp', params: {
+extension OurLang on MyLang {
+  String get welcomeBack => translate('welcomeBack');
+  String? welcomeBackNameApp(String nameUser, String nameApp) =>
+      translate('welcomeBackNameApp', params: {
         'nameUser': nameUser,
         'nameApp': nameApp,
       });
@@ -89,8 +89,8 @@ class OurLang extends MyLang {
 ## Usage
 
 ```dart
-print(OurLang.welcomeBack); // "Welcome Back" or "Chào mừng trở lại"
-print(OurLang.welcomeBackNameApp("John", "MyApp"));
+print(myLang.welcomeBack); // "Welcome Back" or "Chào mừng trở lại"
+print(myLang.welcomeBackNameApp("John", "MyApp"));
 ```
 
 ## Changing Language in the App
@@ -121,6 +121,42 @@ my_lang -i assets/i18n/en.json -o lib/interpreter.dart -c YourLang
 > - **MacBook**: `Command (⌘) + Option (⌥) + C`
 > - **Windows**: `Ctrl + Shift + C`
 
+## Two languages at the same time
+
+```dart
+import 'package:my_lang/my_lang.dart';
+import 'package:flutter/widgets.dart';
+
+MyLang myLang = MyLang();
+MyLang myLang2 = MyLang();
+
+const listLocale = [
+  Locale('en'),
+  Locale('vi'),
+];
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await myLang.setUp(listLocale: listLocale);
+  await myLang2.setUp(
+      listLocale: listLocale,
+      keySaveLocale: "otherKeyForSharedPreference"
+  );
+  runApp(MyApp());
+}
+```
+
+> **Note:**  
+> The `keySaveLocale` must be different for each instance.  
+> This key is used to store the selected language in `SharedPreferences`.
+
+
+### Usage example:
+You can use both language instances as normal:
+```dart
+print(myLang.welcomeBack);
+print(myLang2.welcomeBack);
+```
 
 ## Contribution
 

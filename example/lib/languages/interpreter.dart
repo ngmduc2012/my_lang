@@ -4,20 +4,22 @@ import 'package:my_lang/my_lang.dart';
 
 /* **************************************************************************
 RUN on project terminal
-dart run my_lang
-dart run my_lang -i en.json -o interpreter.dart -c OurLang
+dart pub global activate my_lang 
+
+my_lang
+my_lang -i en.json -o interpreter.dart -c OurLang
 ************************************************************************** */
-class OurLang extends MyLang {
-  static String get youhavepushedthebuttonthismanytimes =>
-      MyLang.translate('youhavepushedthebuttonthismanytimes');
-  static String get increment => MyLang.translate('increment');
-  static String get language => MyLang.translate('language');
-  static String get welcomeBack => MyLang.translate('welcomeBack');
-  static String? welcomeBackNameApp(
+extension OurLang on MyLang {
+  String get youhavepushedthebuttonthismanytimes =>
+      translate('youhavepushedthebuttonthismanytimes');
+  String get increment => translate('increment');
+  String get language => translate('language');
+  String get welcomeBack => translate('welcomeBack');
+  String? welcomeBackNameApp(
     String nameUser,
     String nameApp,
   ) =>
-      MyLang.translate('welcomeBackNameApp', params: {
+      translate('welcomeBackNameApp', params: {
         'nameUser': nameUser,
         'nameApp': nameApp,
       });

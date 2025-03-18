@@ -7,6 +7,7 @@ String className = 'OurLang'; // Giá trị mặc định
 
 /// STEP 1 | input file .json - output file interpreter.dart
 // WINDOW PATH use r"PATH" instead for "PATH"
+// Run: dart run my_lang
 // Learn more https://dart.dev/language/built-in-types#:~:text=You%20can%20create%20a,gets%20special%20treatment.%27%3B
 void main(List<String> arguments) async {
   // Parse command line arguments
@@ -70,7 +71,7 @@ Future<void> writeToFile(
   sink.writeln("my_lang -i en.json -o interpreter.dart -c $className");
   sink.writeln(
       "************************************************************************** */");
-  sink.writeln('class $className extends MyLang {\n');
+  sink.writeln('extension $className on MyLang {\n');
   data.forEach((key, value) {
     final List<String> split = value.toString().split(" ");
     if (split.myItemContain("@")) {
@@ -82,10 +83,9 @@ Future<void> writeToFile(
         a += "String ${e.substring(1, e.length)},";
         b += "'${e.substring(1, e.length)}': ${e.substring(1, e.length)},";
       }
-      sink.writeln(
-          "  static String? $key($a) => MyLang.translate('$key', params: {$b});");
+      sink.writeln("  String? $key($a) => translate('$key', params: {$b});");
     } else {
-      sink.writeln("  static String get $key => MyLang.translate('$key');");
+      sink.writeln("  String get $key => translate('$key');");
     }
   });
   sink.writeln('\n}');

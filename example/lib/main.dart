@@ -15,12 +15,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: OurLang.welcomeBack,
+      title: myLang.welcomeBack,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(title: OurLang.welcomeBackNameApp("Wong", "Lang") ?? ""),
+      home: MyHomePage(title: myLang.welcomeBackNameApp("Wong", "Lang") ?? ""),
     );
   }
 }
@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              OurLang.youhavepushedthebuttonthismanytimes,
+              myLang.youhavepushedthebuttonthismanytimes,
             ),
             Text(
               '$_counter',
@@ -75,13 +75,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           ? const Locale("vi")
                           : const Locale("en"));
                 },
-                child: Text(OurLang.language))
+                child: Text(myLang.language))
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
-        tooltip: OurLang.increment,
+        tooltip: myLang.increment,
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );

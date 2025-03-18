@@ -1,6 +1,6 @@
 name: my_lang
 description: "A library that provides flexible and easy-to-use localization support for Flutter applications."
-version: 0.0.2+4
+version: 1.0.0
 homepage: https://github.com/ngmduc2012/my_lang.git
 funding:
   - https://buymeacoffee.com/ducmng12g
@@ -18,7 +18,7 @@ dependencies:
     sdk: flutter
 
   shared_preferences: ^2.5.2
-  intl: ^0.20.2
+  intl: ^0.19.0
 
 executables:
   my_lang:
@@ -33,7 +33,7 @@ dev_dependencies:
 flutter:
 
 screenshots:
-  - description: "dialog log"
+  - description: "avatar plugin"
     path: avatar.png
 
 topics:
