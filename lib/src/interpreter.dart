@@ -109,8 +109,9 @@ class MyLang {
     localizedStrings = jsonMap.map((key, value) {
       return MapEntry(key, value.toString());
     });
-    if (isReloadApp)
+    if (isReloadApp) {
       await WidgetsFlutterBinding.ensureInitialized().performReassemble();
+    }
     return true;
   }
 
