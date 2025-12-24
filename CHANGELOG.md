@@ -1,3 +1,7 @@
+## 1.0.2+3
+
+* Ignore coverage HTML output in git.
+
 ## 1.0.1+2
 
 * Add concise docs in `doc/` and update ops instructions.
