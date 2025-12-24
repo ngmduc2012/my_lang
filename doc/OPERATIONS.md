@@ -7,6 +7,12 @@ make init
 make test
 ```
 
+## Push code
+
+```sh
+make push
+```
+
 ## Generate language helpers (optional)
 
 ```sh
