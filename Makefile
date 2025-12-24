@@ -14,7 +14,7 @@ test-root:
 test-example:
 	cd example && $(FLUTTER) test
 
-push:
+push: test
 	git add .
 	git commit -m "$(shell date '+%Y-%m-%d %H:%M')" || true
 	git push
