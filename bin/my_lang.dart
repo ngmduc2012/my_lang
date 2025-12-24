@@ -22,7 +22,7 @@ void main(List<String> arguments) async {
   }
 
   while (inputFilePath.isEmpty) {
-    print('? Enter the input json file path (e.g: pathTo/en.json:');
+    stdout.writeln('? Enter the input json file path (e.g: pathTo/en.json:');
     String? input = stdin.readLineSync();
     if (input != null && input.isNotEmpty) {
       inputFilePath = input.trim();
@@ -30,14 +30,14 @@ void main(List<String> arguments) async {
   }
 
   while (outputFilePath.isEmpty) {
-    print('Enter the output file path (e.g: pathTo/interpreter.dart:');
+    stdout.writeln('Enter the output file path (e.g: pathTo/interpreter.dart:');
     String? output = stdin.readLineSync();
     if (output != null && output.isNotEmpty) {
       outputFilePath = output.trim();
     }
   }
 
-  print('Enter the class name (default: OurLang):');
+  stdout.writeln('Enter the class name (default: OurLang):');
   String? inputClassName = stdin.readLineSync();
   if (inputClassName != null && inputClassName.isNotEmpty) {
     className = inputClassName.trim();
@@ -49,7 +49,9 @@ void main(List<String> arguments) async {
       jsonDecode(contents) as Map<String, dynamic>;
 
   jsonData.forEach((key, value) {
-    print("  static String get $key => MyInterpreter.translate('$key');");
+    stdout.writeln(
+      "  static String get $key => MyInterpreter.translate('$key');",
+    );
   });
 
   await writeToFile(outputFilePath, jsonData, className);
